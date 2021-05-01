@@ -73,4 +73,33 @@ public class WMain {
                 ", temp_max=" + temp_max +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        WMain wMain = (WMain) o;
+
+        if (Double.compare(wMain.temp, temp) != 0) return false;
+        if (pressure != wMain.pressure) return false;
+        if (humidity != wMain.humidity) return false;
+        if (Double.compare(wMain.temp_min, temp_min) != 0) return false;
+        return Double.compare(wMain.temp_max, temp_max) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp1;
+        temp1 = Double.doubleToLongBits(temp);
+        result = (int) (temp1 ^ (temp1 >>> 32));
+        result = 31 * result + pressure;
+        result = 31 * result + humidity;
+        temp1 = Double.doubleToLongBits(temp_min);
+        result = 31 * result + (int) (temp1 ^ (temp1 >>> 32));
+        temp1 = Double.doubleToLongBits(temp_max);
+        result = 31 * result + (int) (temp1 ^ (temp1 >>> 32));
+        return result;
+    }
 }

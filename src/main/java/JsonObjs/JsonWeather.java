@@ -150,4 +150,43 @@ public class JsonWeather {
                 ", cod=" + cod +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        JsonWeather that = (JsonWeather) o;
+
+        if (visibility != that.visibility) return false;
+        if (dt != that.dt) return false;
+        if (id != that.id) return false;
+        if (cod != that.cod) return false;
+        if (coord != null ? !coord.equals(that.coord) : that.coord != null) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(weather, that.weather)) return false;
+        if (base != null ? !base.equals(that.base) : that.base != null) return false;
+        if (main != null ? !main.equals(that.main) : that.main != null) return false;
+        if (wind != null ? !wind.equals(that.wind) : that.wind != null) return false;
+        if (clouds != null ? !clouds.equals(that.clouds) : that.clouds != null) return false;
+        if (sys != null ? !sys.equals(that.sys) : that.sys != null) return false;
+        return name != null ? name.equals(that.name) : that.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = coord != null ? coord.hashCode() : 0;
+        result = 31 * result + Arrays.hashCode(weather);
+        result = 31 * result + (base != null ? base.hashCode() : 0);
+        result = 31 * result + (main != null ? main.hashCode() : 0);
+        result = 31 * result + visibility;
+        result = 31 * result + (wind != null ? wind.hashCode() : 0);
+        result = 31 * result + (clouds != null ? clouds.hashCode() : 0);
+        result = 31 * result + (int) (dt ^ (dt >>> 32));
+        result = 31 * result + (sys != null ? sys.hashCode() : 0);
+        result = 31 * result + (int) (id ^ (id >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + cod;
+        return result;
+    }
 }

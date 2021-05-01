@@ -84,4 +84,33 @@ public class Sys {
                 ", sunset=" + sunset +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Sys sys = (Sys) o;
+
+        if (type != sys.type) return false;
+        if (id != sys.id) return false;
+        if (Double.compare(sys.message, message) != 0) return false;
+        if (sunrise != sys.sunrise) return false;
+        if (sunset != sys.sunset) return false;
+        return country != null ? country.equals(sys.country) : sys.country == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = type;
+        result = 31 * result + (int) (id ^ (id >>> 32));
+        temp = Double.doubleToLongBits(message);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (int) (sunrise ^ (sunrise >>> 32));
+        result = 31 * result + (int) (sunset ^ (sunset >>> 32));
+        return result;
+    }
 }
