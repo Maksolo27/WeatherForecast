@@ -49,7 +49,6 @@ public class Bot extends TelegramLongPollingBot {
     private static String proccesRequest(String urlStr) throws IOException {
         URL url = new URL(urlStr);
         StringBuilder stringBuilder = new StringBuilder();
-
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
         String line;
@@ -75,11 +74,21 @@ public class Bot extends TelegramLongPollingBot {
     }
 
     public String getBotUsername() {
-        return null;
+        return "MaksymWeatherBot";
     }
 
     public String getBotToken() {
-        return null;
+        StringBuilder builder = new StringBuilder();
+        try {
+            FileReader fr = new FileReader("C:\\Users\\maxim\\IdeaProjects\\WeatherBotToken");
+            int i;
+            while((i=fr.read())!=-1)
+                builder.append((char)i);
+            fr.close();
+        }catch (IOException e ){
+            e.printStackTrace();
+        }
+        return builder.toString();
     }
 
     public void onUpdateReceived(Update update) {
